@@ -1,0 +1,10 @@
+.avatar {
+  flex-shrink: 0;
+  width: var(--space-2xl);
+  height: var(--space-2xl);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-xs);
+}

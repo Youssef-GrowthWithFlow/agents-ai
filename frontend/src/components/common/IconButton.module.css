@@ -1,0 +1,25 @@
+.button {
+  width: var(--space-2xl);
+  height: var(--space-2xl);
+  border-radius: 50%;
+  background: var(--color-button);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color var(--transition);
+}
+
+.button:hover:not(:disabled) {
+  background: var(--color-button-hover);
+}
+
+.button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.button:disabled:hover {
+  background: var(--color-button);
+}

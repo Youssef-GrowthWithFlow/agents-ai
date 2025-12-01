@@ -1,0 +1,15 @@
+.input {
+  flex: 1;
+  background: transparent;
+  outline: none;
+  border: none;
+  font-size: var(--font-xs);
+}
+
+.input::placeholder {
+  color: var(--color-text-light);
+}
+
+.input:disabled {
+  opacity: 0.5;
+}
