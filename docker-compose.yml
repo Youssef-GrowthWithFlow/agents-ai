@@ -1,4 +1,22 @@
 services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: growth_postgres
+    environment:
+      POSTGRES_DB: growthflow
+      POSTGRES_USER: growthflow_user
+      POSTGRES_PASSWORD: growthflow_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U growthflow_user -d growthflow"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   backend:
     build: ./backend
     ports:
@@ -7,6 +25,12 @@ services:
       - ./backend:/app
     environment:
       - WATCHFILES_FORCE_POLLING=true
+      - DATABASE_URL=postgresql+asyncpg://growthflow_user:growthflow_password@postgres:5432/growthflow
+    env_file:
+      - ./backend/.env
+    depends_on:
+      postgres:
+        condition: service_healthy
 
   frontend:
     build: ./frontend
@@ -17,3 +41,6 @@ services:
       - /app/node_modules
     environment:
       - CHOKIDAR_USEPOLLING=true
+
+volumes:
+  postgres_data:

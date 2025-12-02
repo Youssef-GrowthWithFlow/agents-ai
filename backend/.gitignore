@@ -37,3 +37,6 @@ htmlcov/
 *.swp
 *.swo
 *~
+
+# Database
+postgres_data/
